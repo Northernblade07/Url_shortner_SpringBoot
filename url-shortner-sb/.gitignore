@@ -32,3 +32,4 @@
     ### VS Code ###
     .vscode/
 application.properties
+docker-compose.yml
