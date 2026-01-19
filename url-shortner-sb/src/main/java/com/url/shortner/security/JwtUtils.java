@@ -1,24 +1,26 @@
 package com.url.shortner.security;
 
 import com.url.shortner.service.UserDetailsImpl;
-import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
 import java.security.Key;
 import java.util.Date;
 import java.util.stream.Collectors;
-
+@Component
+@RequiredArgsConstructor
 public class JwtUtils {
     @Value("${jwt.secret}")
     private String jwtSecret;
 
     @Value("${jwt.expiration}")
-    private int jwtExpiration;
+    private long jwtExpiration;
 
 //    Authorization headers -> Bearer <TOKEN>
 
@@ -42,7 +44,7 @@ public class JwtUtils {
                 .compact();
     }
 
-    private String getUserNameFromJwt(String token){
+    public String getUserNameFromJwt(String token){
         return Jwts.parser()
                 .verifyWith((SecretKey) key())
                 .build()
@@ -56,13 +58,13 @@ public class JwtUtils {
     }
 
 
-    private boolean validateToken(String token){
+    public boolean validateToken(String token){
         try {
             Jwts.parser().verifyWith((SecretKey) key())
                     .build().parseSignedClaims(token);
             return true;
         } catch (Exception e){
-            throw new RuntimeException(e);
+            return false;
         }
     }
 }
