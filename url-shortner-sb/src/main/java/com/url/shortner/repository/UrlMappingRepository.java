@@ -12,7 +12,9 @@ import java.util.UUID;
 @Repository
 public interface UrlMappingRepository extends JpaRepository<UrlMapping, UUID> {
 
+    boolean existsByShortUrl(String shortUrl);
     UrlMapping findByShortUrl(String shortUrl);
     List<UrlMapping> findByUser(User user);
+    UrlMapping findByShortUrlAndUserUsername(String shortUrl,String username);
 
 }

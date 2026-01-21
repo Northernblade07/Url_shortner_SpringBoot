@@ -1,7 +1,7 @@
 package com.url.shortner.controller;
 
-import com.url.shortner.Dtos.LoginRequest;
-import com.url.shortner.Dtos.RegisterRequest;
+import com.url.shortner.dtos.LoginRequest;
+import com.url.shortner.dtos.RegisterRequest;
 import com.url.shortner.models.User;
 import com.url.shortner.service.UserService;
 import lombok.AllArgsConstructor;

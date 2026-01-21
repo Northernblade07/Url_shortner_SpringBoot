@@ -1,6 +1,6 @@
 package com.url.shortner.service;
 
-import com.url.shortner.Dtos.LoginRequest;
+import com.url.shortner.dtos.LoginRequest;
 import com.url.shortner.models.User;
 import com.url.shortner.repository.UserRepository;
 import com.url.shortner.security.JwtAuthenticationResponse;
@@ -13,8 +13,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Service
 @AllArgsConstructor
