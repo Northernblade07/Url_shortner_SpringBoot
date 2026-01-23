@@ -36,7 +36,7 @@ public class JwtUtils {
         String username = userDetails.getUsername();
         String roles = userDetails.getAuthorities().stream().map(authority->authority.getAuthority()).collect(Collectors.joining(","));
         return Jwts.builder()
-                .subject(username)
+                .subject(userDetails.getEmail())
                 .claim("roles" , roles)
                 .issuedAt(new Date())
                 .expiration(new Date(new Date().getTime() + jwtExpiration))

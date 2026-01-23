@@ -3,11 +3,14 @@ import AuthLayout from "../components/AuthLayout";
 import { useForm } from "react-hook-form";
 import TextField from "../components/TextField";
 import { useState } from "react";
-import {Link} from "react-router-dom"
+import {Link, useNavigate} from "react-router-dom"
+import api from "../api/api";
+import toast from "react-hot-toast";
 const RegisterPage = () => {
 
   const [loader,setLoader] = useState(false);
 
+  const navigate = useNavigate()
   const {
     register,
     handleSubmit,
@@ -23,7 +26,20 @@ const RegisterPage = () => {
   });
 
   const registerHandler = async (data) => {
-    // same logic
+    setLoader(true);
+    try {
+      
+      const res = await api.post("/api/auth/public/register" ,data);
+      console.log(res);
+      reset();
+      navigate("/login");
+      toast.success("registered succesfully")
+    } catch (error) {
+      console.log(error)
+      toast.error("user registration failed");
+    } finally{
+      setLoader(false);
+    }
   };
 
   return (

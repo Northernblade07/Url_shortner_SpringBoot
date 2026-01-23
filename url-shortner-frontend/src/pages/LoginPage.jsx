@@ -2,12 +2,18 @@ import { motion } from "framer-motion";
 import AuthLayout from "../components/AuthLayout";
 import { useForm } from "react-hook-form";
 import TextField from "../components/TextField";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import api from "../api/api";
+import { useState } from "react";
+import toast from "react-hot-toast";
 
 const LoginPage = () => {
+  const [loader , setLoader] = useState(false);
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors }
   } = useForm({
     defaultValues: {
@@ -19,6 +25,19 @@ const LoginPage = () => {
 
   const loginHandler = async (data) => {
     // same logic (API call, token storage, etc.)
+    setLoader(true)
+    try {
+      const res = await api.post("/api/auth/public/login" , data);
+      console.log(res);
+      reset()
+      toast.success("Login successfull")
+      navigate("/")
+    } catch (error) {
+      console.log(error);
+      toast.error("User Login failed")
+    } finally{
+      setLoader(false)
+    }
   };
 
   return (
@@ -52,14 +71,14 @@ const LoginPage = () => {
           onSubmit={handleSubmit(loginHandler)}
         >
           <TextField
-            label="Username"
-            id="username"
-            type="text"
+            label="Email"
+            id="email"
+            type="email"
             placeholder="Enter your username"
             register={register}
             errors={errors}
             required
-            message="Username is required"
+            message="email is required"
           />
 
           <TextField
@@ -83,7 +102,7 @@ const LoginPage = () => {
               transition-all
             "
           >
-            Login
+            {loader?"loading...":"Login"}
           </motion.button>
         </form>
 
@@ -92,7 +111,7 @@ const LoginPage = () => {
           Don’t have an account?{" "}
          <Link to={'/register'}>
           <span className="text-purple-400 hover:underline cursor-pointer">
-            Register
+            SignUp
           </span>
          </Link>
         </p>
