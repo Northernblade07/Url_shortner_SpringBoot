@@ -37,7 +37,7 @@ public class UserService {
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
 
         String jwt = jwtUtils.generateToken(userDetails);
-        return new JwtAuthenticationResponse(jwt);
+        return new JwtAuthenticationResponse(jwt , userDetails.getEmail()   );
     }
 
     public User findByUsername(String username){

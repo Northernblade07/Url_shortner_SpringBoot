@@ -6,10 +6,12 @@ import { Link, useNavigate } from "react-router-dom";
 import api from "../api/api";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import useAuthStore from "../store/AuthStore";
 
 const LoginPage = () => {
   const [loader , setLoader] = useState(false);
   const navigate = useNavigate();
+  const login = useAuthStore((s)=>s.login);
   const {
     register,
     handleSubmit,
@@ -29,6 +31,11 @@ const LoginPage = () => {
     try {
       const res = await api.post("/api/auth/public/login" , data);
       console.log(res);
+      const json = res.data;
+      login({
+        email:json.email,
+        token:json.token
+      })
       reset()
       toast.success("Login successfull")
       navigate("/")
