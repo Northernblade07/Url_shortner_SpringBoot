@@ -19,7 +19,7 @@ const LoginPage = () => {
     formState: { errors }
   } = useForm({
     defaultValues: {
-      username: "",
+      email: "",
       password: ""
     },
     mode: "onTouched"
@@ -32,13 +32,15 @@ const LoginPage = () => {
       const res = await api.post("/api/auth/public/login" , data);
       console.log(res);
       const json = res.data;
+      console.log(json)
+      console.log(json.email)
       login({
         email:json.email,
         token:json.token
       })
       reset()
       toast.success("Login successfull")
-      navigate("/")
+      navigate("/dashbord")
     } catch (error) {
       console.log(error);
       toast.error("User Login failed")
@@ -99,6 +101,7 @@ const LoginPage = () => {
           />
 
           <motion.button
+          disabled={loader}
             whileTap={{ scale: 0.96 }}
             whileHover={{ scale: 1.02 }}
             className="

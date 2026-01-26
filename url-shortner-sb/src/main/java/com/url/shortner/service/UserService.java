@@ -40,6 +40,10 @@ public class UserService {
         return new JwtAuthenticationResponse(jwt , userDetails.getEmail()   );
     }
 
+    public User findByEmail(String email){
+        return userRepository.findByEmail(email).orElseThrow(()-> new UsernameNotFoundException("user not found"));
+    }
+
     public User findByUsername(String username){
         return userRepository.findByUsername(username).orElseThrow(()-> new UsernameNotFoundException("user not found"));
     }

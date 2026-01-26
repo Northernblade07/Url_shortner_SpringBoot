@@ -1,6 +1,10 @@
 import {motion} from "framer-motion";
+import { Link } from "react-router-dom";
+import useAuthStore from "../../store/AuthStore";
 
 const HeroSection = () => {
+
+  const isAuth = useAuthStore((state)=>state.isAuth);
   return (
     <section className="min-h-screen flex items-center justify-center px-6 pt-24">
       <motion.div
@@ -21,9 +25,12 @@ const HeroSection = () => {
         </p>
 
         <div className="mt-10 flex flex-col sm:flex-row justify-center gap-6">
+         
+         <Link to={isAuth?"/dashboard":"/login"}>
           <button className="px-8 py-4 bg-indigo-600 rounded-xl hover:bg-indigo-500 transition">
             Get Started
           </button>
+         </Link>
           <button className="px-8 py-4 border border-white/20 rounded-xl hover:bg-white/10 transition">
             Learn More
           </button>

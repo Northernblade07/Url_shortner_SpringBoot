@@ -51,7 +51,7 @@ public class UrlMappingService {
         urlMappingDto.setId(urlMapping.getId());
         urlMappingDto.setOriginalUrl(urlMapping.getOriginalUrl());
         urlMappingDto.setShortUrl(urlMapping.getShortUrl());
-        urlMappingDto.setUsername(urlMapping.getUser().getUsername());
+        urlMappingDto.setEmail(urlMapping.getUser().getEmail());
         urlMappingDto.setCreatedAt(urlMapping.getCreatedDate());
         urlMappingDto.setClickCount(urlMapping.getClickCount());
 
@@ -74,11 +74,12 @@ public class UrlMappingService {
         return urlMappingRepository.findByUser(user).stream().map(this::convertToDto).toList();
     }
 
-    public List<ClickEventDto> getClickEventsByDate(String shortUrl , LocalDateTime start , LocalDateTime end , String username){
-        UrlMapping urlMapping= urlMappingRepository.findByShortUrlAndUserUsername(shortUrl , username);
+    public List<ClickEventDto> getClickEventsByDate(String shortUrl , LocalDateTime start , LocalDateTime end , String email){
+        UrlMapping urlMapping= urlMappingRepository.findByShortUrlAndUserEmail(shortUrl , email);
 
+        System.out.println(urlMapping +"urlmapping................");
         if (urlMapping == null ||
-                !urlMapping.getUser().getUsername().equals(username)) {
+                !urlMapping.getUser().getEmail().equals(email)) {
             return List.of();
         }
          return clickEventRepository.findByUrlMappingAndClickDateBetween(urlMapping , start , end).stream()

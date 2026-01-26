@@ -30,15 +30,15 @@ public class UrlMappingController {
                                                         Principal principal){
 
         String originalUrl = request.get("originalUrl");
-        User user = userService.findByUsername(principal.getName());
+        User user = userService.findByEmail(principal.getName());
         UrlMappingDto urlMappingDto = urlMappingService.createShortUrl(originalUrl , user);
         return  ResponseEntity.ok(urlMappingDto);
     }
 
-    @PostMapping("/myUrl")
+    @GetMapping("/myUrl")
     @PreAuthorize("hasRole('USER')")
     public  ResponseEntity<List<UrlMappingDto>> getUserUrls(Principal principal){
-        User user = userService.findByUsername(principal.getName());
+        User user = userService.findByEmail(principal.getName());
         List<UrlMappingDto> urls = urlMappingService.getUrlsByUser(user);
         return ResponseEntity.ok(urls);
     }
@@ -53,9 +53,9 @@ public class UrlMappingController {
         DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
         LocalDateTime start = LocalDateTime.parse(startDate , formatter);
         LocalDateTime end = LocalDateTime.parse(endDate , formatter);
-        String username = principal.getName();
+        String email = principal.getName();
 
-        List<ClickEventDto> clickEvents  = urlMappingService.getClickEventsByDate(shortUrl , start , end , username);
+        List<ClickEventDto> clickEvents  = urlMappingService.getClickEventsByDate(shortUrl , start , end , email);
         return ResponseEntity.ok(clickEvents);
 
     }
@@ -68,7 +68,8 @@ public class UrlMappingController {
                                                                 @RequestParam("endDate") String endDate){
 
         DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE;
-        User user = userService.findByUsername(principal.getName());
+        System.out.println("Principal name = " + principal.getName());
+        User user = userService.findByEmail(principal.getName());
         LocalDate start = LocalDate.parse(startDate , formatter);
         LocalDate end = LocalDate.parse(endDate , formatter);
 
