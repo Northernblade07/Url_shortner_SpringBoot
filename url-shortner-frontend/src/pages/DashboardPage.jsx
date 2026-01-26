@@ -4,8 +4,6 @@ import Topbar from "../components/dashboard/Topbar";
 
 import UrlAnalytics from "../components/dashboard/UrlAnalytics";
 import UrlTable from "../components/dashboard/UrlTable";
-import { Link } from "react-router-dom";
-import { useState } from "react";
 import ShortenPopup from "../components/dashboard/ShortenPopup";
 
 const DashboardPage = () => {

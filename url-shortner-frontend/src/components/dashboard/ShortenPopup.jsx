@@ -52,6 +52,7 @@ const ShortenPopup = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["urls"] });
       queryClient.invalidateQueries({ queryKey: ["url-total-clicks"] });
+      queryClient.invalidateQueries({ queryKey: ["url-analytics"] });
       reset();
       setOpen(false);
     },

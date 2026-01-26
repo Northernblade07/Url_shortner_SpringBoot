@@ -3,8 +3,41 @@ import { Line } from "react-chartjs-2";
 import { useFetchUrlAnalytics } from "../hooks/useFetchUrlAnalytics";
 
 
+
+const options = {
+  responsive: true,
+  maintainAspectRatio:true,
+  interaction: {
+    mode: "index",
+    intersect: false,
+  },
+  plugins: {
+    legend: {
+      display: false,
+    },
+  },
+  scales: {
+    y: {
+      beginAtZero: true,
+      ticks: {
+        precision: 0,
+      },
+    },
+  },
+};
+
+
 const UrlAnalyticsDropdown = ({ shortUrl }) => {
+
   const [range, setRange] = useState(7);
+
+
+
+const formatLocalDateTime = (date) => {
+  const pad = (n) => String(n).padStart(2, "0");
+  return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}T${pad(date.getHours())}:${pad(date.getMinutes())}:${pad(date.getSeconds())}`;
+};
+
 
   const { startDate, endDate } = useMemo(() => {
     const end = new Date();
@@ -12,8 +45,8 @@ const UrlAnalyticsDropdown = ({ shortUrl }) => {
     start.setDate(end.getDate() - range);
 
     return {
-      startDate: start.toISOString().slice(0, 19),
-      endDate: end.toISOString().slice(0, 19),
+      startDate: formatLocalDateTime(start),
+  endDate: formatLocalDateTime(end),
     };
   }, [range]);
 
@@ -24,19 +57,21 @@ const UrlAnalyticsDropdown = ({ shortUrl }) => {
     enabled: true,
   });
 
-  const chartData = {
-    labels: data?.map((d) => d.clickDate) ?? [],
-    datasets: [
-      {
-        label: "Clicks",
-        data: data?.map((d) => d.count) ?? [],
-        borderColor: "#8b5cf6",
-        backgroundColor: "rgba(139,92,246,0.25)",
-        fill: true,
-        tension: 0.4,
-      },
-    ],
-  };
+ const chartData = {
+  labels: data?.map((d) => d.clickDate) ?? [],
+  datasets: [
+    {
+      label: "Clicks",
+      data: data?.map((d) => d.count) ?? [],
+      borderColor: "#8b5cf6",
+      backgroundColor: "rgba(139,92,246,0.25)",
+      fill: true,
+      tension: 0.4,
+    },
+  ],
+};
+
+
 
   return (
     <div className="mt-4 bg-black/40 rounded-lg p-4">
@@ -61,7 +96,7 @@ const UrlAnalyticsDropdown = ({ shortUrl }) => {
 
       {data?.length > 0 && data!=null && chartData.length!=0 && chartData!=null && (
         <div className="h-[200px]">
-          <Line data={chartData} />
+          <Line data={chartData} options={options} />
         </div>
       )}
     </div>
