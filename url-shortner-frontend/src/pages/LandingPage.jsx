@@ -16,7 +16,7 @@ const LandingPage = () => {
       <StatsSection />
       <CTASection />
       <Footer />
-    </div>
+    </div>  
   );
 };
 
