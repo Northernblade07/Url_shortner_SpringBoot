@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import Sidebar from "../components/dashboard/SideBar";
-import Topbar from "../components/dashboard/Topbar";
+import TopBar from "../components/dashboard/TopBar";
 import UrlCard from "../components/UrlCard";
 import { useQuery } from "@tanstack/react-query";
 import api from "../api/api";
@@ -22,7 +22,7 @@ const MyUrlsPage = () => {
       <Sidebar />
 
       <div className="flex-1 flex flex-col">
-        <Topbar />
+        <TopBar />
 
         <motion.main
           initial={{ opacity: 0, y: 20 }}

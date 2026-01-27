@@ -1,4 +1,4 @@
-const Topbar = () => {
+const TopBar = () => {
   return (
     <header className="h-16 flex items-center justify-between px-6 border-b border-white/10 bg-black/40 backdrop-blur-md">
       <h2 className="text-xl font-semibold">Dashboard</h2>
@@ -13,4 +13,4 @@ const Topbar = () => {
   );
 };
 
-export default Topbar;
+export default TopBar;

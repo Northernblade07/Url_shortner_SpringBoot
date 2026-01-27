@@ -1,10 +1,9 @@
 import { motion } from "framer-motion";
 import Sidebar from "../components/dashboard/SideBar";
-import Topbar from "../components/dashboard/Topbar";
-
 import UrlAnalytics from "../components/dashboard/UrlAnalytics";
 import UrlTable from "../components/dashboard/UrlTable";
 import ShortenPopup from "../components/dashboard/ShortenPopup";
+import TopBar from "../components/dashboard/TopBar";
 
 const DashboardPage = () => {
   return (
@@ -15,7 +14,7 @@ const DashboardPage = () => {
 
       {/* Main Content */}
       <div className="flex-1 flex flex-col">
-        <Topbar />
+        <TopBar />
 
         <motion.main
           initial={{ opacity: 0, y: 20 }}
