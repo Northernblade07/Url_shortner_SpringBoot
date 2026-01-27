@@ -33,3 +33,6 @@
     .vscode/
 application.properties
 docker-compose.yml
+
+.env
+.env.prod
