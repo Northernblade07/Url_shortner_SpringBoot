@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import Sidebar from "../components/dashboard/Sidebar";
+import Sidebar from "../components/dashboard/SideBar";
 import Topbar from "../components/dashboard/Topbar";
 
 import UrlAnalytics from "../components/dashboard/UrlAnalytics";
