@@ -15,15 +15,21 @@ const AppRouter =()=>{
     <>
       <Navbar/>
     <Routes>
-      <Route element={<LandingPage/>} path='/'/>
-      <Route element={!isAuth?<LoginPage/>:<Navigate to={'/'}/>} path='/login'/>
-      <Route element={!isAuth?<RegisterPage/>:<Navigate to={'/'}/>} path='/register'/>
-      <Route element={isAuth?<DashboardPage/>:<Navigate to={'/'}/>} path='/dashboard'/>
-      <Route element={isAuth?<MyUrlsPage/>:<Navigate to={'/'}/>} path='/myUrls'/>
-      <Route element={<ErrorPage message={"we can't seem to find the page you are looking for"}/>} path='*'/>
-      <Route element={<ErrorPage message={"Error"}/>} path='/error'/>
+  <Route path="/" element={<LandingPage />} />
 
-    </Routes>
+  <Route path="/login" element={!isAuth ? <LoginPage /> : <Navigate to="/" />} />
+  <Route path="/register" element={!isAuth ? <RegisterPage /> : <Navigate to="/" />} />
+
+  <Route path="/dashboard" element={isAuth ? <DashboardPage /> : <Navigate to="/" />} />
+  <Route path="/myUrls" element={isAuth ? <MyUrlsPage /> : <Navigate to="/" />} />
+
+  {/* 🔥 redirect handler */}
+  <Route path="/:shortCode" element={<ShortenUrlPage />} />
+
+  <Route path="/error" element={<ErrorPage message="Error" />} />
+  <Route path="*" element={<ErrorPage message="We can't seem to find the page you're looking for" />} />
+</Routes>
+
 
     </>
     )

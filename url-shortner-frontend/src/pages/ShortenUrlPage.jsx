@@ -1,14 +1,17 @@
-import React, { useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+import { useEffect } from "react";
+import { useParams } from "react-router-dom";
+
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
 const ShortenUrlPage = () => {
-    const {url} = useParams();
-    useEffect(()=>{
-        if (url) {
-            window.location.href = import.meta.env.VITE_BACKEND_URL+`/${url}`
-        }
-    },[url])
-  return null;
-}
+  const { shortCode } = useParams();
 
-export default ShortenUrlPage
+  useEffect(() => {
+    // 🔥 Let the browser handle redirect logic
+    window.location.href = `${BACKEND_URL}/${shortCode}`;
+  }, [shortCode]);
+
+  return null; // no UI needed
+};
+
+export default ShortenUrlPage;
